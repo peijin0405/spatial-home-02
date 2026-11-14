@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+*.log
+*.blend1
+*.exr
+history/
+.write.lock
+space.tmp

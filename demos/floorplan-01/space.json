@@ -1,0 +1,1247 @@
+{
+  "schema_version": 1,
+  "revision": 3,
+  "status": "draft_requires_review",
+  "units": "metres",
+  "coordinates": "right-handed: X east, Y north, Z up",
+  "source": "source.png",
+  "calibration": {
+    "metres_per_pixel": 0.03236111111111111,
+    "basis": "top dimension chain 2746+1564+3965+1605+1605 mm; raster span x160..484",
+    "status": "inferred_needs_verification"
+  },
+  "assumptions": {
+    "ceiling_height": 2.8,
+    "external_wall_thickness": 0.24,
+    "internal_wall_thickness": 0.16,
+    "door_height": 2.1,
+    "window_sill": 0.85,
+    "window_height": 1.45,
+    "status": "all_unconfirmed"
+  },
+  "warnings": [
+    "这是低分辨率图片人工描摹底稿，不是测绘模型。",
+    "房间面积为原图标注，未用作模型面积验收。",
+    "厨房南侧开口形式、储B门位置及南侧窗型需核实。",
+    "家具为占位模型；原图储A无家具，保持空置。"
+  ],
+  "outline": [
+    [
+      0.0,
+      9.0288
+    ],
+    [
+      4.4011,
+      9.0288
+    ],
+    [
+      4.4011,
+      11.9089
+    ],
+    [
+      10.485,
+      11.9089
+    ],
+    [
+      10.485,
+      0.0
+    ],
+    [
+      6.3104,
+      0.0
+    ],
+    [
+      6.3104,
+      2.0064
+    ],
+    [
+      6.0839,
+      2.0064
+    ],
+    [
+      6.0839,
+      1.165
+    ],
+    [
+      2.5889,
+      1.165
+    ],
+    [
+      2.5889,
+      0.4854
+    ],
+    [
+      1.0679,
+      0.4854
+    ],
+    [
+      1.0679,
+      1.165
+    ],
+    [
+      0.0,
+      1.165
+    ]
+  ],
+  "rooms": [
+    {
+      "id": "bed_a",
+      "name": "卧室 A",
+      "label_area_m2": 12.5,
+      "polygon": [
+        [
+          0.0,
+          9.0288
+        ],
+        [
+          5.469,
+          9.0288
+        ],
+        [
+          5.469,
+          6.4722
+        ],
+        [
+          0.0,
+          6.4722
+        ]
+      ],
+      "status": "traced"
+    },
+    {
+      "id": "store_a",
+      "name": "储 A",
+      "label_area_m2": 17.5,
+      "polygon": [
+        [
+          0.0,
+          6.4722
+        ],
+        [
+          3.7539,
+          6.4722
+        ],
+        [
+          3.7539,
+          1.165
+        ],
+        [
+          0.0,
+          1.165
+        ]
+      ],
+      "status": "traced"
+    },
+    {
+      "id": "bed_b",
+      "name": "卧室 B",
+      "label_area_m2": 8.5,
+      "polygon": [
+        [
+          3.7539,
+          5.2425
+        ],
+        [
+          6.4399,
+          5.2425
+        ],
+        [
+          6.4399,
+          2.0064
+        ],
+        [
+          6.0839,
+          2.0064
+        ],
+        [
+          6.0839,
+          1.165
+        ],
+        [
+          3.7539,
+          1.165
+        ]
+      ],
+      "status": "traced"
+    },
+    {
+      "id": "bath",
+      "name": "卫生间",
+      "label_area_m2": 3.6,
+      "polygon": [
+        [
+          5.469,
+          9.1258
+        ],
+        [
+          7.0871,
+          9.1258
+        ],
+        [
+          7.0871,
+          6.4722
+        ],
+        [
+          5.469,
+          6.4722
+        ]
+      ],
+      "status": "traced"
+    },
+    {
+      "id": "store_b",
+      "name": "储 B",
+      "label_area_m2": 2,
+      "polygon": [
+        [
+          4.4982,
+          10.2585
+        ],
+        [
+          6.4399,
+          10.2585
+        ],
+        [
+          6.4399,
+          8.9317
+        ],
+        [
+          5.469,
+          8.9317
+        ],
+        [
+          5.469,
+          9.1258
+        ],
+        [
+          4.4982,
+          9.1258
+        ]
+      ],
+      "status": "traced"
+    },
+    {
+      "id": "kitchen",
+      "name": "厨房",
+      "label_area_m2": 5.9,
+      "polygon": [
+        [
+          4.4982,
+          11.9089
+        ],
+        [
+          8.7051,
+          11.9089
+        ],
+        [
+          8.7051,
+          10.0967
+        ],
+        [
+          6.4399,
+          10.0967
+        ],
+        [
+          6.4399,
+          10.2585
+        ],
+        [
+          4.4982,
+          10.2585
+        ]
+      ],
+      "status": "traced"
+    },
+    {
+      "id": "living",
+      "name": "客厅",
+      "label_area_m2": 40.4,
+      "polygon": [
+        [
+          8.7051,
+          11.9089
+        ],
+        [
+          10.485,
+          11.9089
+        ],
+        [
+          10.485,
+          0.0
+        ],
+        [
+          6.3104,
+          0.0
+        ],
+        [
+          6.3104,
+          2.0064
+        ],
+        [
+          6.4399,
+          2.0064
+        ],
+        [
+          6.4399,
+          5.2425
+        ],
+        [
+          3.7539,
+          5.2425
+        ],
+        [
+          3.7539,
+          6.4722
+        ],
+        [
+          7.0871,
+          6.4722
+        ],
+        [
+          7.0871,
+          9.1258
+        ],
+        [
+          6.4399,
+          9.1258
+        ],
+        [
+          6.4399,
+          10.0967
+        ],
+        [
+          8.7051,
+          10.0967
+        ]
+      ],
+      "status": "traced"
+    }
+  ],
+  "walls": [
+    {
+      "id": "north",
+      "a": [
+        4.4011,
+        11.9089
+      ],
+      "b": [
+        10.485,
+        11.9089
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "east",
+      "a": [
+        10.485,
+        11.9089
+      ],
+      "b": [
+        10.485,
+        0.0
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "south_living",
+      "a": [
+        6.3104,
+        0.0
+      ],
+      "b": [
+        10.485,
+        0.0
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "west_living",
+      "a": [
+        6.3104,
+        2.0064
+      ],
+      "b": [
+        6.3104,
+        0.0
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_b_step",
+      "a": [
+        6.0839,
+        2.0064
+      ],
+      "b": [
+        6.3104,
+        2.0064
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_b_east_lower",
+      "a": [
+        6.0839,
+        2.0064
+      ],
+      "b": [
+        6.0839,
+        1.165
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "south_b",
+      "a": [
+        3.7539,
+        1.165
+      ],
+      "b": [
+        6.0839,
+        1.165
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "south_store",
+      "a": [
+        0.0,
+        1.165
+      ],
+      "b": [
+        3.7539,
+        1.165
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "west",
+      "a": [
+        0.0,
+        9.0288
+      ],
+      "b": [
+        0.0,
+        1.165
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "north_a",
+      "a": [
+        0.0,
+        9.0288
+      ],
+      "b": [
+        4.4982,
+        9.0288
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "west_kitchen",
+      "a": [
+        4.4982,
+        11.9089
+      ],
+      "b": [
+        4.4982,
+        9.0288
+      ],
+      "thickness": 0.24,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "kitchen_east",
+      "a": [
+        8.7051,
+        11.9089
+      ],
+      "b": [
+        8.7051,
+        10.0967
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "kitchen_south",
+      "a": [
+        6.4399,
+        10.0967
+      ],
+      "b": [
+        8.7051,
+        10.0967
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "store_b_north",
+      "a": [
+        4.4982,
+        10.2585
+      ],
+      "b": [
+        6.4399,
+        10.2585
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "store_b_east",
+      "a": [
+        6.4399,
+        10.2585
+      ],
+      "b": [
+        6.4399,
+        9.1258
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "store_b_south",
+      "a": [
+        4.4982,
+        9.0288
+      ],
+      "b": [
+        5.469,
+        9.0288
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bath_north",
+      "a": [
+        5.469,
+        9.1258
+      ],
+      "b": [
+        7.0871,
+        9.1258
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bath_west",
+      "a": [
+        5.469,
+        9.1258
+      ],
+      "b": [
+        5.469,
+        6.4722
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bath_east",
+      "a": [
+        7.0871,
+        9.1258
+      ],
+      "b": [
+        7.0871,
+        6.4722
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bath_south",
+      "a": [
+        5.469,
+        6.4722
+      ],
+      "b": [
+        7.0871,
+        6.4722
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_a_south",
+      "a": [
+        0.0,
+        6.4722
+      ],
+      "b": [
+        5.469,
+        6.4722
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "store_a_east",
+      "a": [
+        3.7539,
+        6.4722
+      ],
+      "b": [
+        3.7539,
+        1.165
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_b_north",
+      "a": [
+        3.7539,
+        5.2425
+      ],
+      "b": [
+        6.4399,
+        5.2425
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_b_east",
+      "a": [
+        6.4399,
+        5.2425
+      ],
+      "b": [
+        6.4399,
+        2.0064
+      ],
+      "thickness": 0.16,
+      "height": 2.8,
+      "locked": true,
+      "status": "traced_unconfirmed"
+    }
+  ],
+  "openings": [
+    {
+      "id": "entry",
+      "wall_id": "north",
+      "type": "door",
+      "offset": 4.6924,
+      "width": 1.165,
+      "sill": 0,
+      "height": 2.1,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "living_window",
+      "wall_id": "south_living",
+      "type": "window",
+      "offset": 0.1618,
+      "width": 3.8186,
+      "sill": 0.85,
+      "height": 1.45,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "store_a_window",
+      "wall_id": "south_store",
+      "type": "window",
+      "offset": 1.0679,
+      "width": 1.521,
+      "sill": 0.85,
+      "height": 1.45,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_a_window",
+      "wall_id": "north_a",
+      "type": "window",
+      "offset": 0.2589,
+      "width": 1.974,
+      "sill": 0.85,
+      "height": 1.45,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "kitchen_access",
+      "wall_id": "kitchen_south",
+      "type": "door",
+      "offset": 0.0971,
+      "width": 1.0032,
+      "sill": 0,
+      "height": 2.1,
+      "status": "inferred_unconfirmed"
+    },
+    {
+      "id": "store_b_access",
+      "wall_id": "store_b_north",
+      "type": "door",
+      "offset": 0.2589,
+      "width": 0.809,
+      "sill": 0,
+      "height": 2.1,
+      "status": "inferred_unconfirmed"
+    },
+    {
+      "id": "bath_door",
+      "wall_id": "bath_south",
+      "type": "door",
+      "offset": 0.6472,
+      "width": 0.7767,
+      "sill": 0,
+      "height": 2.1,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "store_a_door",
+      "wall_id": "bed_a_south",
+      "type": "door",
+      "offset": 2.9125,
+      "width": 0.8414,
+      "sill": 0,
+      "height": 2.1,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_a_door",
+      "wall_id": "bed_a_south",
+      "type": "door",
+      "offset": 4.4011,
+      "width": 0.9385,
+      "sill": 0,
+      "height": 2.1,
+      "status": "traced_unconfirmed"
+    },
+    {
+      "id": "bed_b_door",
+      "wall_id": "bed_b_north",
+      "type": "door",
+      "offset": 0.2265,
+      "width": 0.8738,
+      "sill": 0,
+      "height": 2.1,
+      "status": "traced_unconfirmed"
+    }
+  ],
+  "furniture": [
+    {
+      "id": "bed_a",
+      "name": "卧室 A · 床",
+      "position": [
+        1.5533,
+        7.6696,
+        0
+      ],
+      "size": [
+        1.65,
+        2,
+        0.52
+      ],
+      "rotation": 0,
+      "room_id": "bed_a",
+      "status": "design_placeholder",
+      "color": "#8faaa7"
+    },
+    {
+      "id": "bed_b",
+      "name": "卧室 B · 床",
+      "position": [
+        5.469,
+        3.9481,
+        0
+      ],
+      "size": [
+        1.35,
+        1.95,
+        0.52
+      ],
+      "rotation": 0,
+      "room_id": "bed_b",
+      "status": "design_placeholder",
+      "color": "#8faaa7"
+    },
+    {
+      "id": "sofa",
+      "name": "客厅 · 意式双座沙发 2580",
+      "position": [
+        9.8,
+        4.4011,
+        0
+      ],
+      "size": [
+        1,
+        2.58,
+        0.76
+      ],
+      "rotation": 0,
+      "room_id": "living",
+      "status": "design_placeholder",
+      "color": "#d5cdbb",
+      "model_type": "reference_sofa",
+      "components": [
+        {
+          "name": "shell_base",
+          "center": [
+            0.0,
+            0.0,
+            0.26973684210526316
+          ],
+          "size": [
+            0.96,
+            0.9767441860465116,
+            0.15789473684210525
+          ],
+          "color": "#625f50",
+          "radius": 0.055,
+          "metallic": 0
+        },
+        {
+          "name": "shell_back",
+          "center": [
+            0.415,
+            0.0,
+            0.5986842105263158
+          ],
+          "size": [
+            0.14,
+            0.9534883720930232,
+            0.631578947368421
+          ],
+          "color": "#625f50",
+          "radius": 0.06,
+          "metallic": 0
+        },
+        {
+          "name": "shell_side-1",
+          "center": [
+            0.02,
+            -0.47093023255813954,
+            0.5657894736842105
+          ],
+          "size": [
+            0.92,
+            0.05813953488372093,
+            0.631578947368421
+          ],
+          "color": "#625f50",
+          "radius": 0.065,
+          "metallic": 0
+        },
+        {
+          "name": "seat-1",
+          "center": [
+            -0.09,
+            -0.21899224806201548,
+            0.4539473684210526
+          ],
+          "size": [
+            0.82,
+            0.434108527131783,
+            0.3026315789473684
+          ],
+          "color": null,
+          "radius": 0.095,
+          "metallic": 0
+        },
+        {
+          "name": "back_cushion-1",
+          "center": [
+            0.285,
+            -0.21899224806201548,
+            0.7763157894736842
+          ],
+          "size": [
+            0.31,
+            0.434108527131783,
+            0.4473684210526316
+          ],
+          "color": null,
+          "radius": 0.105,
+          "metallic": 0
+        },
+        {
+          "name": "arm_pillow-1",
+          "center": [
+            0.02,
+            -0.4476744186046512,
+            0.763157894736842
+          ],
+          "size": [
+            0.94,
+            0.10465116279069768,
+            0.32894736842105265
+          ],
+          "color": null,
+          "radius": 0.105,
+          "metallic": 0
+        },
+        {
+          "name": "leg(-1, -0.32, -0.035)",
+          "center": [
+            -0.32,
+            -0.4205426356589147,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "leg(-1, -0.32, 0.035)",
+          "center": [
+            -0.32,
+            -0.3934108527131783,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "leg(-1, 0.32, -0.035)",
+          "center": [
+            0.32,
+            -0.4205426356589147,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "leg(-1, 0.32, 0.035)",
+          "center": [
+            0.32,
+            -0.3934108527131783,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "shell_side1",
+          "center": [
+            0.02,
+            0.47093023255813954,
+            0.5657894736842105
+          ],
+          "size": [
+            0.92,
+            0.05813953488372093,
+            0.631578947368421
+          ],
+          "color": "#625f50",
+          "radius": 0.065,
+          "metallic": 0
+        },
+        {
+          "name": "seat1",
+          "center": [
+            -0.09,
+            0.21899224806201548,
+            0.4539473684210526
+          ],
+          "size": [
+            0.82,
+            0.434108527131783,
+            0.3026315789473684
+          ],
+          "color": null,
+          "radius": 0.095,
+          "metallic": 0
+        },
+        {
+          "name": "back_cushion1",
+          "center": [
+            0.285,
+            0.21899224806201548,
+            0.7763157894736842
+          ],
+          "size": [
+            0.31,
+            0.434108527131783,
+            0.4473684210526316
+          ],
+          "color": null,
+          "radius": 0.105,
+          "metallic": 0
+        },
+        {
+          "name": "arm_pillow1",
+          "center": [
+            0.02,
+            0.4476744186046512,
+            0.763157894736842
+          ],
+          "size": [
+            0.94,
+            0.10465116279069768,
+            0.32894736842105265
+          ],
+          "color": null,
+          "radius": 0.105,
+          "metallic": 0
+        },
+        {
+          "name": "leg(1, -0.32, -0.035)",
+          "center": [
+            -0.32,
+            0.3934108527131783,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "leg(1, -0.32, 0.035)",
+          "center": [
+            -0.32,
+            0.4205426356589147,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "leg(1, 0.32, -0.035)",
+          "center": [
+            0.32,
+            0.3934108527131783,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        },
+        {
+          "name": "leg(1, 0.32, 0.035)",
+          "center": [
+            0.32,
+            0.4205426356589147,
+            0.11842105263157894
+          ],
+          "size": [
+            0.016,
+            0.006201550387596899,
+            0.23684210526315788
+          ],
+          "color": "#a4874b",
+          "radius": 0.005,
+          "metallic": 0.85
+        }
+      ],
+      "reference": {
+        "image": "sofa-reference.png",
+        "dimensions_mm": [
+          2580,
+          1000,
+          760
+        ],
+        "fabric": "BLMM0226",
+        "woven_leather": "GLBZ0021",
+        "microfiber": "GLCQ0016",
+        "metal": "拉丝日本金",
+        "status": "外尺寸采用用户数据；正面参考照片；侧背面、构造与材质为近似"
+      }
+    },
+    {
+      "id": "table",
+      "name": "客厅 · 茶几",
+      "position": [
+        8.6728,
+        4.4011,
+        0
+      ],
+      "size": [
+        0.72,
+        1.2,
+        0.42
+      ],
+      "rotation": 0,
+      "room_id": "living",
+      "status": "design_placeholder",
+      "color": "#8faaa7"
+    },
+    {
+      "id": "cabinet",
+      "name": "厨房 · 操作台",
+      "position": [
+        6.4075,
+        11.4882,
+        0
+      ],
+      "size": [
+        3.3,
+        0.65,
+        0.9
+      ],
+      "rotation": 0,
+      "room_id": "kitchen",
+      "status": "design_placeholder",
+      "color": "#8faaa7"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "overview",
+      "name": "整体鸟瞰",
+      "position": [
+        -7,
+        -9,
+        15
+      ],
+      "target": [
+        5,
+        6,
+        0
+      ],
+      "fov": 65
+    },
+    {
+      "id": "living_1",
+      "name": "客厅 · 南向北",
+      "position": [
+        7,
+        1.2,
+        1.6
+      ],
+      "target": [
+        9,
+        8,
+        1.4
+      ],
+      "fov": 65
+    },
+    {
+      "id": "living_2",
+      "name": "客厅 · 北向南",
+      "position": [
+        9,
+        9.7,
+        1.6
+      ],
+      "target": [
+        8,
+        3,
+        1.4
+      ],
+      "fov": 65
+    },
+    {
+      "id": "bedroom",
+      "name": "卧室 A",
+      "position": [
+        4.8,
+        6.8,
+        1.6
+      ],
+      "target": [
+        1.4,
+        7.5,
+        1
+      ],
+      "fov": 65
+    }
+  ],
+  "materials": {
+    "wall": "#e7e4dd",
+    "floor": "#c9b695",
+    "furniture": "#8faaa7"
+  }
+}
