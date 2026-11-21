@@ -10,3 +10,6 @@ __pycache__/
 history/
 .write.lock
 space.tmp
+
+.venv-vision/
+artifacts/door-recognition/

@@ -104,3 +104,29 @@ python3 -m unittest discover -s tests -v
 python3 examples/floorplan-01/test_model.py
 python3 examples/floorplan-02/test_model.py
 ```
+
+## 平开门符号检测（实验性、需复核）
+
+新增 `spatial/door_detection.py`，识别“门扇直线 + 开启圆弧 + 两端墙体”的几何关系，支持实线和虚线圆弧。候选来自 Hough 门扇线段和墙体间隙；使用圆弧覆盖率、径向对比、墙端距离、洞口净空及扇形内部杂线比例过滤家具与文字。旋转的门扇可由 Hough 路径检测；墙缝补充路径限于图像水平/垂直方向。默认检测 90° 开启，可在 Python Config.sweeps 中扩展，但其他开启角度尚未验证。
+
+该模块是通用几何基线，不是保证覆盖所有户型的训练模型。不支持从推拉门、折叠门或无圆弧的开口推断平开门；严重遮挡、透视照片、细墙线与家具侵入开启扇区可能漏检。`score` 是几何证据评分，不是概率；全部结果标记为需人工复核，不自动增删墙体或洞口。复核前不能用来断言原图的所有门均已识别。
+
+安装独立依赖并运行（与 Blender 环境分离）：
+
+```sh
+python3 -m venv .venv-vision
+.venv-vision/bin/python -m pip install -r requirements-vision.txt
+.venv-vision/bin/python scripts/detect_doors.py examples/floorplan-02/source.png \
+  --min-radius 50 --max-radius 140 --ignore-colored-annotations \
+  --output artifacts/door-recognition/floorplan-02
+.venv-vision/bin/python -m unittest discover -s tests -v
+```
+
+半径范围是原始图像的像素单位，应依据分辨率/标注比例调整，不是为某张图硬编码坐标。`--ignore-colored-annotations` 可去除蓝色尺寸线等高饱和度标注；有彩色门墙线的图请勿开启。大图内部缩至最长边 1600 像素，结果会映射回输入像素坐标。输出：
+
+- `doors.json`：铰链点、门扇端点、推断闭合端点、半径、带符号开启角、评分、证据和复核状态。
+- `doors-overlay.png`：红点为铰链，绿线为开启门扇，蓝线为推断闭合位置。图像坐标 X 向右、Y 向下，正旋转为顺时针。
+
+可同时提供 `--space space.json --calibration calibration.json`。标定文件是明确的 2×3 像素到米制坐标仿射矩阵（两行三列 JSON 数组），满足 `[world_x,world_y] = M × [pixel_x,pixel_y,1]`。模块仅在端点靠近墙线、宽度合理、投影位于墙段内时提出 `wall_id / offset / width`，并报告重叠的现有洞口。无匹配或多墙匹配会显式报告，不强行贴到最近墙；尚未实现把人工确认结果自动写回模型。
+
+当前验证：合成实线/虚线、旋转（含 33°）、缩放，以及空白、矩形、圆形干扰；户型图二人工标记的三处可见平开门均匹配。该单图结果不能视为跨图集准确率，落地前仍需多来源标注集、独立留出测试与误检/漏检评估。
