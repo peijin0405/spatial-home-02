@@ -162,3 +162,39 @@ python3 scripts/audit_doors.py examples/floorplan-02/space.json
 审计命令不改模型，退出码 0 为通过，1 为缺少证据待复核，2 为冲突。正常生成会写 `door-audit.json`，网页显示对应状态并提供报告链接，glTF 的 `extras.door_audit` 保存同一审计信息。更新静态预览时还需把示例目录的 `door-audit.json` 复制到对应 `demos`，户型二报告同时复制至根目录。
 
 户型二西侧次卧的 `bed_a_door` 已从下方横墙移至右侧 `bed_a_entry_wall`，并和东卧室门一同保存人工核对后的图像依据。其他旧门洞尚未逐个录入图像依据，因此两个示例仍标为待复核草稿。新增测试主动制造错墙、偏移、宽度、缺墙、多墙匹配、无效标定及候选冲突，验证它们会被拒绝；还验证失败导出不会覆盖上一个文件。
+
+## 轻量自动机位搜索
+
+`spatial/camera_planner.py` 为纯 Python、无新增依赖的候选机位搜索。Agent 先把自然语言映射为“允许站位的房间 ID + 要展示的家具 ID”，再调用规划器；它本身不解析自然语言。客厅可以用 `sofa table` 作为主体，客餐厅组合可以用 `sofa dining` 作为主体。这是家具代理目标，不是对整个房间可见面积的测量。
+
+流程：在房间多边形内确定性采样 → 检查站立净空 → 对每个目标发射多条遮挡射线 → 搜索注视点和 FOV → 检查主体完整入框、面积与留白 → 构图评分 → 返回最多三个位置不同的机位。使用墙体开洞后的几何、门扇和家具检测碰撞；不透明物体遮挡视线，透明玻璃遮挡行走但近似允许看穿。不会隐藏墙体、打开门或移动家具来凑画面。
+
+默认参数：眼高 1.6 m，站立净空 0.20 m，约 0.6 m 网格且最多 180 个位置，垂直 FOV 为 50/60/70°，俯角不超过 18°，横滚为 0。每个目标的采样点可见率至少 75%，主体包围盒四周至少留画幅 8% 的边距；主体联合矩形占画幅 6%～65%，单目标面积至少 1.2%。角度和位置经过搜索，而不是强行把镜头设在房间中心。
+
+几何构图评分（非审美概率）：30% 最弱目标可见率、22% 主体占比（偏好约28%）、18% 画面中心/留白、10% 多目标大小平衡、12% 已知沙发正面朝向、8% 较小广角偏好。默认最低评分 0.70。阈值可通过 Python `CameraConfig` 调整，应根据产品审美标注集验证。
+
+```sh
+python3 scripts/plan_camera.py examples/floorplan-01 --room living \
+  --targets sofa table --output artifacts/door-recognition/auto-camera-01.json
+python3 scripts/plan_camera.py examples/floorplan-02 --room living \
+  --targets sofa dining --output artifacts/door-recognition/auto-camera-02.json
+python3 scripts/plan_camera.py examples/floorplan-02 --room balcony \
+  --targets sofa dining --output artifacts/door-recognition/auto-camera-02-balcony.json
+```
+
+结果有三个状态：`ok`（退出0）、`no_feasible_view`（退出2，没有通过硬性约束的机位）、`requires_review`（退出3，存在可用机位但构图分数不足）。后两种状态不能被调用方当作成功截图。失败只说明当前离散搜索未找到合格视角，不证明连续空间中绝对无解。样例二西侧阳台不是客厅阳台，不能为了满足描述而自动换一个房间。
+
+所有查看器提供 `window.spatialApp.captureCameraPlan(plan, index=0, width=1600)`。它检查场景快照和计划状态，按计划画幅捕获图片，返回 PNG data URL、相机参数、视图/投影矩阵，随后恢复交互相机与剖切状态。场景中的墙、门或家具变动后必须重新计算，不能复用旧计划。示例一页面中可通过以下代码使用本地生成的文件：
+
+```js
+const plan = await fetch('/artifacts/door-recognition/auto-camera-01.json').then(r => r.json());
+const shot = window.spatialApp.captureCameraPlan(plan);
+const link = document.createElement('a');
+link.href = shot.image;
+link.download = 'auto-camera.png';
+link.click();
+```
+
+算法不需要训练、外部模型服务或 GPU 搜索；GPU 只用于最后的 Three.js 截图。当前两个案例的规划耗时在本机约一秒以内（非性能承诺）。实测户型一能返回合格候选，户型二客餐厅组合分数不足而返回需复核，西侧阳台组合返回未找到可用机位。
+
+边界：稀疏射线和家具包围盒不能替代逐像素可见性；不检查从入口走到机位的路径；不评价曝光、反射或真实材质；几何评分不能保证所有场景都美观。交付前应低分辨率渲染候选并做图像检查。当前 Agent 示例已人工检查截图，代码尚未实现渲染像素二次评分或视觉模型审美排序。

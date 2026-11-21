@@ -52,7 +52,21 @@ $('rooms').innerHTML=model.rooms.map(r=>`<div class="stat"><span>${r.name}</span
 const ray=new THREE.Raycaster(),mouse=new THREE.Vector2();renderer.domElement.addEventListener('dblclick',e=>{const rect=renderer.domElement.getBoundingClientRect();mouse.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);ray.setFromCamera(mouse,camera);const hit=ray.intersectObjects(root.children).find(h=>h.object.userData.id);if(hit){$('object').value=hit.object.userData.id;fields();}});
 new ResizeObserver(()=>{renderer.setSize(host.clientWidth,host.clientHeight);camera.aspect=host.clientWidth/host.clientHeight;camera.updateProjectionMatrix();}).observe(host);
 build();setCamera();status('空间已加载。双击家具可选中；原始结构处于锁定状态。');renderer.setAnimationLoop(()=>{controls.update();renderer.render(scene,camera);});
-window.spatialApp={get model(){return model;},scene,camera,renderer};
+
+function captureCameraPlan(plan,index=0,width=1600){
+ const snapshot={walls:model.walls,openings:model.openings,furniture:model.furniture,outline:model.outline};
+ if(plan.status!=='ok'||JSON.stringify(plan.scene_snapshot)!==JSON.stringify(snapshot))throw Error('机位方案不可用或场景已改变，请重新计算');
+ const c=plan.cameras[index];if(!c||!Number.isInteger(width)||width<320||width>4096)throw Error('无效截图参数');
+ if(![...c.position,...c.target,c.vertical_fov,c.aspect,c.near,c.far].every(Number.isFinite)||c.aspect<=0||c.vertical_fov<=0||c.vertical_fov>=180||c.near<=0||c.far<=c.near)throw Error('无效相机参数');
+ const savedCamera=camera.clone(),savedCut=cut,savedRatio=renderer.getPixelRatio(),savedSize=renderer.getSize(new THREE.Vector2());
+ try{
+  cut=false;build();camera.position.set(...c.position);camera.up.set(0,0,1);camera.lookAt(...c.target);camera.fov=c.vertical_fov;camera.aspect=c.aspect;camera.near=c.near;camera.far=c.far;camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
+  const height=Math.round(width/c.aspect);renderer.setPixelRatio(1);renderer.setSize(width,height,false);renderer.render(scene,camera);
+  return {image:renderer.domElement.toDataURL('image/png'),camera:{...c,resolution:[width,height],view_matrix:camera.matrixWorldInverse.toArray(),projection_matrix:camera.projectionMatrix.toArray()},scene_sha256:plan.scene_sha256};
+ }finally{camera.copy(savedCamera);cut=savedCut;if(savedCut)build();renderer.setPixelRatio(savedRatio);renderer.setSize(savedSize.x,savedSize.y,false);renderer.render(scene,camera);}
+}
+
+window.spatialApp={captureCameraPlan,get model(){return model;},scene,camera,renderer};
 
 $('enter').onclick=()=>{
  cut=false;build();$('cut').textContent='剖切查看';$('object').value='sofa';fields();
