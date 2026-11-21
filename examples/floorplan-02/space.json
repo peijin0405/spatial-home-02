@@ -489,7 +489,10 @@
       "width": 1.9997,
       "sill": 0,
       "height": 2.1,
-      "status": "traced_estimated"
+      "status": "traced_estimated",
+      "details": {
+        "style": "none"
+      }
     },
     {
       "id": "bath_door",
@@ -549,7 +552,10 @@
       "width": 2.5379,
       "sill": 0,
       "height": 2.1,
-      "status": "traced_estimated"
+      "status": "traced_estimated",
+      "details": {
+        "style": "none"
+      }
     },
     {
       "id": "balcony_door",

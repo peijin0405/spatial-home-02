@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from '../../vendor/OrbitControls.js';
 const $=id=>document.getElementById(id),status=t=>$('status').textContent=t;
-let model=await fetch('space.json').then(r=>r.json()),parts=await fetch('geometry.json').then(r=>r.json());
+let model=await fetch('space.json').then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
 try{const saved=JSON.parse(localStorage.getItem('floorplan-01-draft')||'null');if(saved){model.furniture=saved.furniture;model.materials=saved.materials;}}catch{}
 const host=$('viewport'),scene=new THREE.Scene();scene.background=new THREE.Color('#e5e9e1');
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));host.prepend(renderer.domElement);
@@ -16,6 +16,11 @@ function meshBox(p,s,color,r=0,radius=0,metallic=0){
 function build(){while(root.children.length){const o=root.children.pop();o.geometry?.dispose();o.material?.dispose();o.parent=null;}
  const shape=new THREE.Shape(model.outline.map(p=>new THREE.Vector2(...p)));const floor=new THREE.Mesh(new THREE.ShapeGeometry(shape),new THREE.MeshStandardMaterial({color:model.materials.floor,side:THREE.DoubleSide}));floor.position.z=-.015;root.add(floor);
  for(const b of parts.filter(b=>b.kind==='wall')){let p=[...b.position],s=[...b.size];if(cut){let lo=p[2]-s[2]/2,hi=Math.min(.65,p[2]+s[2]/2);if(lo>=hi)continue;s[2]=hi-lo;p[2]=(hi+lo)/2;}meshBox(p,s,model.materials.wall,b.rotation);}
+ for(const b of parts.filter(b=>b.kind==='opening_detail')){
+  let p=[...b.position],s=[...b.size];if(cut){const lo=p[2]-s[2]/2,hi=Math.min(.65,p[2]+s[2]/2);if(lo>=hi)continue;s[2]=hi-lo;p[2]=(hi+lo)/2;}
+  const o=meshBox(p,s,b.color,b.rotation);o.userData.openingId=b.opening_id;
+  if(b.opacity<1){o.material.transparent=true;o.material.opacity=b.opacity;o.material.depthWrite=false;o.material.roughness=.15;o.renderOrder=2;}
+ }
  for(const f of model.furniture){
   const r=THREE.MathUtils.degToRad(f.rotation);
   const components=f.components||[{center:[0,0,.5],size:[1,1,1]}];

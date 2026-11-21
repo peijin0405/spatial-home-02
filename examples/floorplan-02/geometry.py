@@ -1,4 +1,6 @@
-import math
+import math,sys,pathlib
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[2]))
+from spatial.opening_details import opening_parts
 
 def boxes(m):
  out=[]
@@ -20,6 +22,7 @@ def boxes(m):
     box(f['id']+':'+c['name'],[x+dx*math.cos(r)-dy*math.sin(r),y+dx*math.sin(r)+dy*math.cos(r),z+dz],[c['size'][i]*f['size'][i] for i in range(3)],r,'furniture',c.get('color') or f['color'])
     out[-1].update(radius=c.get('radius',0),metallic=c.get('metallic',0))
   else:box(f['id'],[x,y,z+sz/2],[sx,sy,sz],r,'furniture',f['color'])
+ out.extend(opening_parts(m))
  return out
 
 def validate(m):

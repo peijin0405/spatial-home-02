@@ -61,3 +61,46 @@ python agent.py material --id wall --color '#ded7c8'
 这不是全自动户型识别系统。原图尺寸、墙厚、层高、门窗高度及未见结构存在估算；各示例的来源与假设保存在 `space.json`。模型仅用于设计预览，不作为施工图。参考款沙发依据正面照片和外尺寸近似建模，侧背面与材料外观未经厂家确认。
 
 `vendor` 中的 Three.js 与 OrbitControls 保留上游许可声明；示例图片为用户提供素材，不额外授予其商业使用许可。
+
+## 门窗细化生成
+
+`spatial/opening_details.py` 是两个户型共用的门窗细化模块。现有 `geometry.py`、本地保存接口与 Blender 建模脚本会自动调用它，根据洞口的米制坐标生成框、门扇/窗扇、轨道、玻璃、把手与合页。墙体轮廓和洞口尺寸保持原样；网页剖切会同步裁切新增部件。
+
+每个 `openings` 条目可增加配置：
+
+```json
+{"details": {"style": "sliding"}}
+```
+
+| style | 行为 |
+| --- | --- |
+| `auto`（默认） | window 类型、非零窗台或宽度大于 1.6 米使用双轨推拉；其余使用平开实体门 |
+| `hinged` | 实体门扇、门框、把手、合页 |
+| `glass_door` | 带边框的玻璃门扇、把手、合页 |
+| `sliding` | 两扇玻璃推拉门/窗、框与上下双轨 |
+| `none` | 保留通道，不增加部件 |
+
+示例二的书房开口与厨房通道显式设置为 `none`。部件属于设计预览方案：门扇默认关闭，无开合动画；窗框宽 45 mm、普通窗玻璃厚 6 mm，非产品测量数据。标准部件不支持宽小于 0.3 米或高小于 0.4 米的洞口，会报告错误；这种洞口可设为 `none`。玻璃在网页与通用 glTF 中采用透明材质，Blender 脚本另设置透射材质。
+
+从仓库根目录重新生成：
+
+```sh
+python3 examples/floorplan-01/geometry.py
+python3 examples/floorplan-02/geometry.py
+python3 scripts/export_detailed_gltf.py examples/floorplan-01
+python3 scripts/export_detailed_gltf.py examples/floorplan-02
+cp examples/floorplan-01/geometry.json demos/floorplan-01/geometry.json
+cp examples/floorplan-02/geometry.json demos/floorplan-02/geometry.json
+cp examples/floorplan-02/geometry.json geometry.json
+cp examples/floorplan-02/output/space-detailed.gltf output/space-detailed.gltf
+```
+
+`output/space-detailed.gltf` 自包含几何、材质及非凸地板，可导入 Blender；无需安装 Blender 即可生成。网页下载入口已改为此文件。它是生成时的快照，网页家具调整不会自动改写下载文件。已有 `.blend`、`.glb` 与旧效果图保留为历史快照；要更新 `.blend` 和渲染图，请重新执行前文 Blender 建模命令。当前修改已检查 Blender 脚本语法，尚未在 Blender 中运行验证。
+
+验证命令：
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 examples/floorplan-01/test_model.py
+python3 examples/floorplan-02/test_model.py
+```

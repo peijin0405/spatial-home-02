@@ -15,14 +15,22 @@ def mat(name,color):
 mats={}
 for n,b in enumerate(boxes(m),1):
  bpy.ops.mesh.primitive_cube_add(size=1,location=b['position']);o=bpy.context.object;o.name=b['id'];o.dimensions=b['size'];o.rotation_euler[2]=b['rotation'];o.pass_index=n
- if b['color'] not in mats:mats[b['color']]=mat(b['color'],b['color'])
- o.data.materials.append(mats[b['color']])
+ key=(b['color'],b.get('opacity',1),b.get('metallic',0))
+ if key not in mats:
+  ma=mat(str(key),b['color']);bsdf=ma.node_tree.nodes.get('Principled BSDF')
+  bsdf.inputs['Metallic'].default_value=b.get('metallic',0)
+  if b.get('opacity',1)<1:
+   ma.diffuse_color=(*ma.diffuse_color[:3],b['opacity']);bsdf.inputs['Alpha'].default_value=b['opacity']
+   bsdf.inputs['Roughness'].default_value=.15;bsdf.inputs['IOR'].default_value=1.45
+   bsdf.inputs['Transmission Weight'].default_value=.9
+  mats[key]=ma
+ o.data.materials.append(mats[key])
  if b.get('radius'):
   bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
   bevel=o.modifiers.new('Soft upholstery edges','BEVEL');bevel.width=min(b['radius'],min(b['size'])/2);bevel.segments=6
   o.modifiers.new('Weighted normals','WEIGHTED_NORMAL')
   for face in o.data.polygons:face.use_smooth=True
- if b.get('metallic'):mats[b['color']].node_tree.nodes.get('Principled BSDF').inputs['Metallic'].default_value=b['metallic']
+ if b.get('metallic'):mats[key].node_tree.nodes.get('Principled BSDF').inputs['Metallic'].default_value=b['metallic']
 
 def surface(name,z,material):
  mesh=bpy.data.meshes.new(name);mesh.from_pydata([(x,y,z) for x,y in m['outline']],[],[list(range(len(m['outline'])))])
