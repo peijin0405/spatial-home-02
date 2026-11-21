@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "model_revision": 3,
+  "errors": [],
+  "warnings": [
+    {
+      "opening_id": "entry",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "kitchen_access",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "store_b_access",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "bath_door",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "store_a_door",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "bed_a_door",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "bed_b_door",
+      "code": "missing_source_evidence"
+    }
+  ],
+  "bindings": [],
+  "status": "requires_review",
+  "structure_sha256": "27cdad7634e5f3233fb7b7e4af10ca1afa26d82a9e8551312e40feb04f18996f"
+}

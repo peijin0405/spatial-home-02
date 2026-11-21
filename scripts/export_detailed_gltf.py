@@ -4,10 +4,12 @@ Usage: python3 scripts/export_detailed_gltf.py examples/floorplan-01
 import base64,importlib.util,json,math,pathlib,struct,sys
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
+from spatial.door_audit import write_audit_report
 
 def export(directory):
  p=pathlib.Path(directory).resolve();m=json.loads((p/'space.json').read_text())
  spec=importlib.util.spec_from_file_location('export_geometry',p/'geometry.py');module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+ audit=write_audit_report(m,p)
  module.validate(m);parts=module.boxes(m)
  vertices=[[-.5,-.5,-.5],[.5,-.5,-.5],[.5,.5,-.5],[-.5,.5,-.5],[-.5,-.5,.5],[.5,-.5,.5],[.5,.5,.5],[-.5,.5,.5]]
  faces=[[0,2,1],[0,3,2],[4,5,6],[4,6,7],[0,1,5],[0,5,4],[1,2,6],[1,6,5],[2,3,7],[2,7,6],[3,0,4],[3,4,7]]
@@ -46,6 +48,6 @@ def export(directory):
  color=m['materials']['floor'];materials.append({'pbrMetallicRoughness':{'baseColorFactor':[(int(color[i:i+2],16)/255)**2.2 for i in (1,3,5)]+[1],'metallicFactor':0,'roughnessFactor':.9},'doubleSided':True})
  meshes.append({'primitives':[{'attributes':{'POSITION':fp,'NORMAL':fn},'material':len(materials)-1}]});nodes.append({'name':'floor','mesh':len(meshes)-1})
  root=len(nodes);nodes.append({'name':'Metres Z-up to Y-up','rotation':[-math.sqrt(.5),0,0,math.sqrt(.5)],'children':list(range(root))})
- g=dict(asset={'version':'2.0','generator':'spatial-home opening details'},scene=0,scenes=[{'nodes':[root]}],nodes=nodes,meshes=meshes,materials=materials,bufferViews=views,accessors=accessors,buffers=[{'byteLength':len(binary),'uri':'data:application/octet-stream;base64,'+base64.b64encode(binary).decode()}])
+ g=dict(extras={'door_audit':audit},asset={'version':'2.0','generator':'spatial-home opening details'},scene=0,scenes=[{'nodes':[root]}],nodes=nodes,meshes=meshes,materials=materials,bufferViews=views,accessors=accessors,buffers=[{'byteLength':len(binary),'uri':'data:application/octet-stream;base64,'+base64.b64encode(binary).decode()}])
  out=p/'output/space-detailed.gltf';out.parent.mkdir(exist_ok=True);out.write_text(json.dumps(g));return out
 if __name__=='__main__':print(export(sys.argv[1]))

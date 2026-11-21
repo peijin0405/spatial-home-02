@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import math
 import cv2
 import numpy as np
+from spatial.door_audit import wall_fit
 
 @dataclass(frozen=True)
 class Config:
@@ -125,6 +126,7 @@ def match_to_walls(candidates, model, pixel_to_world, tolerance=.15):
     for candidate in candidates:
         p=dict(candidate);points=[transform@np.array([*candidate[k],1]) for k in ('hinge_px','closed_tip_px')];matches=[]
         for wall in model['walls']:
+            if not wall_fit(points[0],points[1],wall,distance_tolerance=tolerance)['matches']:continue
             a=np.array(wall['a']);v=np.array(wall['b'])-a;length=np.linalg.norm(v)
             if length==0:continue
             u=v/length;offsets=[float((q-a)@u) for q in points];distances=[abs(float((q-a)@np.array([-u[1],u[0]]))) for q in points]

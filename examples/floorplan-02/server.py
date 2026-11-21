@@ -2,6 +2,7 @@ from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 import pathlib,json,os,math,threading,fcntl
 from contextlib import contextmanager
 from geometry import validate,boxes
+from spatial.door_audit import write_audit_report
 P=pathlib.Path(__file__).parent;os.chdir(P);lock=threading.Lock()
 def inside(p,poly):
  x,y=p;c=False
@@ -52,6 +53,7 @@ def commit(m):
   m['revision']+=1
   temp=P/'space.tmp';temp.write_text(json.dumps(m,ensure_ascii=False,indent=2));temp.replace(P/'space.json')
   (P/'geometry.json').write_text(json.dumps(boxes(m)))
+  write_audit_report(m,P)
   return m
 class Handler(SimpleHTTPRequestHandler):
  def do_POST(self):

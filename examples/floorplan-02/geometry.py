@@ -1,8 +1,10 @@
 import math,sys,pathlib
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[2]))
 from spatial.opening_details import opening_parts
+from spatial.door_audit import enforce_door_bindings, write_audit_report
 
 def boxes(m):
+ enforce_door_bindings(m)
  out=[]
  def box(id,p,s,r=0,kind='wall',color=None):out.append(dict(id=id,position=p,size=s,rotation=r,kind=kind,color=color or m['materials'][kind]))
  for w in m['walls']:
@@ -26,6 +28,7 @@ def boxes(m):
  return out
 
 def validate(m):
+ enforce_door_bindings(m)
  ids=[w['id'] for w in m['walls']]+[h['id'] for h in m['openings']]
  assert len(ids)==len(set(ids)), 'Duplicate structural ID'
  for w in m['walls']:
@@ -39,6 +42,6 @@ def validate(m):
  return True
 if __name__=='__main__':
  import json,pathlib
- p=pathlib.Path(__file__).parent;m=json.loads((p/'space.json').read_text());validate(m)
+ p=pathlib.Path(__file__).parent;m=json.loads((p/'space.json').read_text());write_audit_report(m,p);validate(m)
  (p/'geometry.json').write_text(json.dumps(boxes(m)))
  print('Validated',len(m['walls']),'walls,',len(m['openings']),'openings')

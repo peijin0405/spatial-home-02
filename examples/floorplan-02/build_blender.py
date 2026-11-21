@@ -1,9 +1,10 @@
 import bpy,json,pathlib,math,sys
 from mathutils import Vector
 from geometry import boxes,validate
+from spatial.door_audit import write_audit_report
 P=pathlib.Path(__file__).parent
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else sys.argv[1:]
-m=json.loads(pathlib.Path(args[0] if args else P/'space.json').read_text());validate(m)
+m=json.loads(pathlib.Path(args[0] if args else P/'space.json').read_text());write_audit_report(m,P);validate(m)
 out=P/'output';out.mkdir(exist_ok=True)
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
 scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=24

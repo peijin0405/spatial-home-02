@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "model_revision": 3,
+  "errors": [],
+  "warnings": [
+    {
+      "opening_id": "entry",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "study_open",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "bath_door",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "bath_internal",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "bath2_door",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "kitchen_access",
+      "code": "missing_source_evidence"
+    },
+    {
+      "opening_id": "balcony_door",
+      "code": "missing_source_evidence"
+    }
+  ],
+  "bindings": [
+    {
+      "opening_id": "bed_a_door",
+      "wall_id": "bed_a_entry_wall",
+      "candidate_wall_ids": [
+        "bed_a_entry_wall"
+      ],
+      "evidence_world": [
+        [
+          3.6257467994310097,
+          4.094668400520157
+        ],
+        [
+          3.6257467994310097,
+          4.862418725617686
+        ]
+      ],
+      "matches": true,
+      "angle_degrees": 0.0,
+      "distance_m": 0.03025320056899039,
+      "offset": 0.15996840052015715,
+      "width": 0.7677503250975288,
+      "within_wall": true
+    },
+    {
+      "opening_id": "bed_b_door",
+      "wall_id": "bed_b_entry_wall",
+      "candidate_wall_ids": [
+        "bed_b_entry_wall"
+      ],
+      "evidence_world": [
+        [
+          8.756330014224751,
+          4.084005201560469
+        ],
+        [
+          8.756330014224751,
+          4.831282184655397
+        ]
+      ],
+      "matches": true,
+      "angle_degrees": 0.0,
+      "distance_m": 0.09093001422475133,
+      "offset": 0.223905201560469,
+      "width": 0.7472769830949275,
+      "within_wall": true
+    }
+  ],
+  "status": "requires_review",
+  "structure_sha256": "7de116fce3667dae75854df20a8c7d41f1a06ec834ada118d2e3e0aa2bc07e4e"
+}

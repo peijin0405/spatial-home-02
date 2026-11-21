@@ -1,8 +1,14 @@
 import * as THREE from 'three';
 import {OrbitControls} from '../../vendor/OrbitControls.js';
 const $=id=>document.getElementById(id),status=t=>$('status').textContent=t;
-let model=await fetch('space.json').then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
+let model=await fetch('space.json',{cache:'no-store'}).then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
 try{const saved=JSON.parse(localStorage.getItem('floorplan-01-draft')||'null');if(saved){model.furniture=saved.furniture;model.materials=saved.materials;}}catch{}
+let doorAudit;
+try{const response=await fetch('door-audit.json',{cache:'no-store'});if(!response.ok)throw Error('audit missing');doorAudit=await response.json();}catch{doorAudit={status:'requires_review'};}
+const auditBadge=document.querySelector('.badge');
+if(doorAudit.status==='blocked'){if(auditBadge)auditBadge.textContent='门洞校验冲突';status('门洞与原图证据冲突，请修正数据后重新生成。');throw Error('Door audit blocked');}
+if(doorAudit.model_revision!==model.revision)doorAudit.status='requires_review';
+if(auditBadge)auditBadge.textContent=doorAudit.status==='validated'?'门洞绑定已校验':'门洞依据待复核 · 草稿';
 const host=$('viewport'),scene=new THREE.Scene();scene.background=new THREE.Color('#e5e9e1');
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));host.prepend(renderer.domElement);
 const camera=new THREE.PerspectiveCamera(65,1,.05,150);camera.up.set(0,0,1);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;

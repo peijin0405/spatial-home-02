@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": 2,
+  "revision": 3,
   "status": "draft_requires_review",
   "units": "metres",
   "coordinates": "X image right, Y image up, Z vertical; geographic north unknown",
@@ -9,7 +9,19 @@
     "x_metres_per_pixel": 0.010099573257467994,
     "y_metres_per_pixel": 0.010663198959687906,
     "basis": "overall estimated 14.2 x 8.2 metres; exterior boundary pixel 128..1534,105..874",
-    "status": "estimated; local dimensions not constrained"
+    "status": "estimated; local dimensions not constrained",
+    "pixel_to_world": [
+      [
+        0.010099573257467994,
+        0,
+        -1.2927453769559032
+      ],
+      [
+        0,
+        -0.010663198959687906,
+        9.31963589076723
+      ]
+    ]
   },
   "assumptions": {
     "ceiling_height": 2.8,
@@ -414,6 +426,21 @@
       "locked": true,
       "status": "reviewed_from_source",
       "note": "Right bedroom entrance is perpendicular to the solid wall behind sofa."
+    },
+    {
+      "id": "bed_a_entry_wall",
+      "a": [
+        3.656,
+        3.9347
+      ],
+      "b": [
+        3.656,
+        4.9797
+      ],
+      "height": 2.8,
+      "thickness": 0.14,
+      "locked": true,
+      "status": "reviewed_from_source"
     }
   ],
   "openings": [
@@ -489,13 +516,33 @@
     },
     {
       "id": "bed_a_door",
-      "wall_id": "bed_a_south",
+      "wall_id": "bed_a_entry_wall",
       "type": "door",
-      "offset": 2.7975,
-      "width": 0.7373,
+      "offset": 0.16,
+      "width": 0.7678,
       "sill": 0,
       "height": 2.1,
-      "status": "traced_estimated"
+      "status": "reviewed_from_source",
+      "details": {
+        "style": "hinged"
+      },
+      "source_evidence": {
+        "source_image": "source.png",
+        "hinge_px": [
+          487,
+          490
+        ],
+        "leaf_tip_px": [
+          415,
+          490
+        ],
+        "closed_tip_px": [
+          487,
+          418
+        ],
+        "review_status": "confirmed",
+        "review_note": "Compared against source swing arc; closed span is vertical, open leaf horizontal."
+      }
     },
     {
       "id": "study_open",
@@ -543,15 +590,21 @@
         "style": "hinged"
       },
       "source_evidence": {
+        "source_image": "source.png",
         "hinge_px": [
           995,
+          491
+        ],
+        "leaf_tip_px": [
+          1065.08,
           491
         ],
         "closed_tip_px": [
           995,
           420.92
         ],
-        "note": "Swing arc reviewed in source.png; projected onto existing west bedroom wall axis."
+        "review_status": "confirmed",
+        "review_note": "Compared against source swing arc; closed span is vertical, open leaf horizontal."
       }
     },
     {
@@ -1640,5 +1693,45 @@
     "wall": "#e2dfd5",
     "floor": "#c8b99d",
     "furniture": "#8a9b94"
-  }
+  },
+  "door_candidates": [
+    {
+      "id": "reviewed_bed_a_door",
+      "hinge_px": [
+        487,
+        490
+      ],
+      "leaf_tip_px": [
+        415,
+        490
+      ],
+      "closed_tip_px": [
+        487,
+        418
+      ],
+      "review": {
+        "status": "accepted",
+        "opening_id": "bed_a_door"
+      }
+    },
+    {
+      "id": "reviewed_bed_b_door",
+      "hinge_px": [
+        995,
+        491
+      ],
+      "leaf_tip_px": [
+        1065.08,
+        491
+      ],
+      "closed_tip_px": [
+        995,
+        420.92
+      ],
+      "review": {
+        "status": "accepted",
+        "opening_id": "bed_b_door"
+      }
+    }
+  ]
 }
