@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 const $=id=>document.getElementById(id),status=t=>$('status').textContent=t;
-let model=await fetch('space.json').then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
+let model=await fetch('space.json', {cache:'no-store'}).then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
 const original=structuredClone(model);const storageKey='spatial-home-02-v1';try{const draft=JSON.parse(localStorage.getItem(storageKey)||'null');if(draft){model.furniture=draft.furniture;model.materials=draft.materials;}}catch{}
 const host=$('viewport'),scene=new THREE.Scene();scene.background=new THREE.Color('#e5e9e1');
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));host.prepend(renderer.domElement);

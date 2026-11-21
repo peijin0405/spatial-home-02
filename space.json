@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": 1,
+  "revision": 2,
   "status": "draft_requires_review",
   "units": "metres",
   "coordinates": "X image right, Y image up, Z vertical; geographic north unknown",
@@ -398,6 +398,22 @@
       "thickness": 0.14,
       "locked": true,
       "status": "traced_estimated"
+    },
+    {
+      "id": "bed_b_entry_wall",
+      "a": [
+        8.6654,
+        3.8601
+      ],
+      "b": [
+        8.6654,
+        4.8624
+      ],
+      "height": 2.8,
+      "thickness": 0.14,
+      "locked": true,
+      "status": "reviewed_from_source",
+      "note": "Right bedroom entrance is perpendicular to the solid wall behind sofa."
     }
   ],
   "openings": [
@@ -516,13 +532,27 @@
     },
     {
       "id": "bed_b_door",
-      "wall_id": "bed_b_south",
+      "wall_id": "bed_b_entry_wall",
       "type": "door",
-      "offset": 0.101,
-      "width": 0.7373,
+      "offset": 0.2239,
+      "width": 0.7473,
       "sill": 0,
       "height": 2.1,
-      "status": "traced_estimated"
+      "status": "reviewed_from_source",
+      "details": {
+        "style": "hinged"
+      },
+      "source_evidence": {
+        "hinge_px": [
+          995,
+          491
+        ],
+        "closed_tip_px": [
+          995,
+          420.92
+        ],
+        "note": "Swing arc reviewed in source.png; projected onto existing west bedroom wall axis."
+      }
     },
     {
       "id": "balcony_bath_window",

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 const $=id=>document.getElementById(id),status=t=>$('status').textContent=t;
-let model=await fetch('space.json').then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
+let model=await fetch('space.json', {cache:'no-store'}).then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
 const host=$('viewport'),scene=new THREE.Scene();scene.background=new THREE.Color('#e5e9e1');
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));host.prepend(renderer.domElement);
 const camera=new THREE.PerspectiveCamera(65,1,.05,150);camera.up.set(0,0,1);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;

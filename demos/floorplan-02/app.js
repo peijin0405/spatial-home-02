@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from '../../vendor/OrbitControls.js';
 const $=id=>document.getElementById(id),status=t=>$('status').textContent=t;
-let model=await fetch('space.json').then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
+let model=await fetch('space.json', {cache:'no-store'}).then(r=>r.json()),parts=await fetch('geometry.json', {cache:'no-store'}).then(r=>r.json());
 try{const saved=JSON.parse(localStorage.getItem('floorplan-02-draft')||'null');if(saved){model.furniture=saved.furniture;model.materials=saved.materials;}}catch{}
 const host=$('viewport'),scene=new THREE.Scene();scene.background=new THREE.Color('#e5e9e1');
 const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));host.prepend(renderer.domElement);
